@@ -1,4 +1,4 @@
-# ArduinoMenu 4
+# ArduinoMenu 5
 
 **Generic menu/interactivity system for the arduino framework**
 
@@ -261,6 +261,31 @@ input is read from generic streams, included simple streams for encoders and key
 multiple stream packing for input to mix encoder stream with encoder keyboard (usually 1 or 2 keys)
 
 ## History
+
+### 5.0
+
+**`config` options deprecated and deleted**  
+options are now distributed to input and output objects
+
+`selectedCursor` and `disabledCursor` are now `char *` and a new one `noCursor` has bee added.
+
+this options are now on menuOut object.
+
+`invertFieldKeys` - deprecated, drivers should internally do inversion if adequate.
+
+`useNavChar` - deprecated, menu only receives commands
+
+**new input commands added**
+
+- numValue - when input wants to deliver a numeric character
+- textValue - when input wants to deliver a character
+
+**menu input objects no longer derive from streams**  
+meaning that there is not a task of the menu system to decipher and handle command characters.
+
+- lighter core
+- inputs can be separately configured
+- driver no longer need to use command character indirection
 
 ### 4.0
   - More examples
