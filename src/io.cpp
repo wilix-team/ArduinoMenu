@@ -7,6 +7,11 @@ using namespace Menu;
 // menuOut - base menu output device
 //
 ////////////////////////////////////////////////////////////////////////////////
+
+char* menuOut::selectedCursor=">";
+char* menuOut::disabledCursor="-";
+char* menuOut::noCursor=" ";
+
 #ifdef MENU_ASYNC
   bool menuOut::isAsync() {return false;}
 #endif

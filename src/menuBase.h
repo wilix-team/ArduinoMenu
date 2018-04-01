@@ -33,6 +33,8 @@ www.r-site.net
   #define _MAX(a,b) (((a)>(b))?(a):(b))
 
   namespace Menu {
+    constexpr int menuVersion[3]{5,0,0};
+
     //input description
     enum inputCaps {
       basic=0<<0,
@@ -193,28 +195,28 @@ www.r-site.net
     // typedef navCode navCodesDef[10];
     // extern const navCodesDef defaultNavCodes;
 
-    struct config {
-      config(
-        char ecur='>',
-        char dcur='-',
-        // const navCodesDef &nc=defaultNavCodes,
-        bool invKeys=true
-      ):selectedCursor(ecur),
-      disabledCursor(dcur),
-      // navCodes(nc),
-      invertFieldKeys(invKeys) {}
-      //NOTE:this can be output specific
-      char selectedCursor;//='>';
-      char disabledCursor;//='-';
-      // const navCodesDef &navCodes;//=defaultNavCodes;
-      bool invertFieldKeys;
-      ///TODO: MOVE THIS TO INPUT DRIVER IF NEEDED!
-      // bool useNavChars=true;//textFields should watch out for nav char in the stream (can write then on keybeord if true)
-      // inline char getCmdChar(navCmds cmd) const {return navCodes[cmd].ch;}//return character assigned to this command
-    };
+    // struct config {
+    //   config(
+    //     // char ecur='>',
+    //     // char dcur='-',
+    //     // const navCodesDef &nc=defaultNavCodes,
+    //     bool invKeys=true
+    //   )/*:selectedCursor(ecur),
+    //   disabledCursor(dcur),*/
+    //   // navCodes(nc),
+    //   // invertFieldKeys(invKeys)
+    //   {}
+    //   //NOTE:this can be output specific
+    //   // char selectedCursor;//='>';
+    //   // char disabledCursor;//='-';
+    //   // const navCodesDef &navCodes;//=defaultNavCodes;
+    //   // bool invertFieldKeys;
+    //   ///TODO: MOVE THIS TO INPUT DRIVER IF NEEDED!
+    //   // bool useNavChars=true;//textFields should watch out for nav char in the stream (can write then on keybeord if true)
+    //   // inline char getCmdChar(navCmds cmd) const {return navCodes[cmd].ch;}//return character assigned to this command
+    // };
 
-    extern config defaultOptions;
-    extern config* options;
+    // extern config defaultOptions;
 
     #ifdef DRAW_2D
       typedef class Area {

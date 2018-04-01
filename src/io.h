@@ -13,6 +13,7 @@
     class menuIn {
       protected:
         inputCaps caps;
+        // bool invertFieldKeys;// will we need this generic?
         menuIn(inputCaps caps=basic):caps(caps) {}
       public:
         bool can(inputCaps c) {return (c&caps)!=0;}
@@ -94,6 +95,9 @@
     class menuOut:public Print {
       friend class prompt;
       public:
+        static char* selectedCursor;//='>';
+        static char* disabledCursor;//='-';
+        static char* noCursor;//='-';
         idx_t* tops;
         panelsList& panels;
         idx_t lastSel=-1;
@@ -136,7 +140,7 @@
         virtual void setColor(colorDefs c,bool selected=false,status s=enabledStatus,bool edit=false) {}
         virtual void drawCursor(idx_t ln,bool selected,status stat,bool edit=false,idx_t panelNr=0) {
           setColor(cursorColor, selected, stat,edit);
-          write(selected?(stat==disabledStatus? options->disabledCursor : options->selectedCursor):' ');
+          write(selected?(stat==disabledStatus? disabledCursor : selectedCursor):noCursor);
         }
         //text editor cursors
         virtual idx_t startCursor(navRoot& root,idx_t x,idx_t y,bool charEdit,idx_t panelNr=0) {write(charEdit?">":"[");return 1;}

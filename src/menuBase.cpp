@@ -43,8 +43,8 @@ idx_t Menu::print_P(Print& s,const char* at,idx_t len) {
 //   {scrlUpCmd,0x36}
 // };
 
-config Menu::defaultOptions={'>','-',false};
-config* Menu::options=&defaultOptions;
+// config Menu::defaultOptions={'>','-',false};
+// config* Menu::options=&defaultOptions;
 
 #ifdef MENU_DEBUG
 

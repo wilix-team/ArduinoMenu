@@ -82,6 +82,7 @@
 
     class navRoot {
       public:
+        // config* options;
         outputsList &out;
         menuIn& in;
         navNode* path;
