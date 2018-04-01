@@ -75,17 +75,18 @@
     };
 
     #ifdef MENU_ASYNC
-      // class StringStream:public streamIn {
-      //   public:
-      //     const char *src;
-      //     StringStream(const char*s):src(s) {}
-      //     int available() override {return 0!=*src;}
-      //     navCmd getCmd() override {return navKeys(*src++);}
-      //     navCmd peek() override {return *src?navKeys(*src):noCmd;}
-      //     // void flush() override {while(*src) src++;}
-      //     // size_t write(uint8_t) override {return 0;}
-      //     operator const String() {return String(src);}
-      // };
+      class StringStream:public streamIn {
+        public:
+          const char *src;
+          StringStream(const char*s):src(s) {}
+          int available() override {return 0!=*src;}
+          navCmd getCmd() override {return navKeys(*src++);}
+          navCmd peek() override {return *src?navKeys(*src):noCmd;}
+          // void flush() override {while(*src) src++;}
+          // size_t write(uint8_t) override {return 0;}
+          operator const String() {return String(src);}
+          virtual float parseFloat() {return String(src).toFloat();}
+      };
     #endif
 
     ///////////////////////////////////////////////////////////////////////////
