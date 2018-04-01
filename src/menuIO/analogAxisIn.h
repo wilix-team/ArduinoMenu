@@ -41,16 +41,16 @@ analogAxisIn - analog joystick axis
           }
           // Serial<<endl<<"dt:"<<dt<<" >s:"<<s;
         }
-        inline navCmds pos() const {return inv^field_mode?negCmd:posCmd;}
-        inline navCmds neg() const {return inv^field_mode?posCmd:negCmd;}
+        inline navCmd pos() const {return inv^field_mode?negCmd:posCmd;}
+        inline navCmd neg() const {return inv^field_mode?posCmd:negCmd;}
         int available(void) {getStep();return cnt!=0;}
-        int peek(void) override {
+        navCmd peek(void) override {
           getStep();
           if (cnt<0) return neg();
           if (cnt>0) return pos();
-          return -1;
+          return noCmd;
         }
-        int read() override {
+        navCmd getCmd() override {
           getStep();
           if (cnt<0) {
             cnt++;
@@ -60,10 +60,10 @@ analogAxisIn - analog joystick axis
             cnt--;
             return pos();
           }
-          return -1;
+          return noCmd;
         }
-        void flush() {cnt=0;last=millis();}
-        size_t write(uint8_t v) {cnt=v;return 1;}
+        // void flush() {cnt=0;last=millis();}
+        // size_t write(uint8_t v) {cnt=v;return 1;}
     };
   }//namespace Menu
 

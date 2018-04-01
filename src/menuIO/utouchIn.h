@@ -32,8 +32,8 @@ UTouch library from:
       unsigned long evTime;
       menuUTouch(UTouch& t,navRoot& root,gfxOut& out):touch(t),root(root),out(out),touching(false),dragging(false) {}
       int available(void) {return touch.dataAvailable()?1:touching;}
-      int peek(void) {return -1;}
-      int read() {
+      navCmd peek(void) {return noCmd;}
+      navCmd getCmd() {
         menuNode& m=root.active();
         panel p=out.panels[out.panels.cur];
         if (touch.dataAvailable()) {
@@ -41,9 +41,9 @@ UTouch library from:
           evTime=millis();
           touch.read();
           startX=touch.getX()-p.x*out.resX;
-          if (startX>out.maxX()*out.resX) return -1;
+          if (startX>out.maxX()*out.resX) return noCmd;
           int y=touch.getY()-p.y*out.resY;//-menuNode::activeNode->oy;
-          if (y<0||y>out.maxY()*out.resY) return -1;
+          if (y<0||y>out.maxY()*out.resY) return noCmd;
           //within menu box
           if (touching) {//might be dragging
             int d=scrlY-y;
@@ -68,15 +68,15 @@ UTouch library from:
             evTime=millis();
           }
         } else {
-          if (millis()-evTime<200) return -1;//debouncing
+          if (millis()-evTime<200) return noCmd;//debouncing
           touching=false;//touch ending
-          if (dragging) return -1;
+          if (dragging) return noCmd;
           int st=root.showTitle?1:0;
           if (root.navFocus->isMenu()&&!root.navFocus->parentDraw()) {
             int at=startY/out.resY;
             //Serial<<"utouch index select "<<((at>=st&&at<(m.sz()+st))?at-st+out.top(root.node())+'1':-1)<<endl;
             //Serial<<"canNav:"<<root.navFocus->canNav()<<"isVariant:"<<root.navFocus->isVariant()<<endl;
-            return (at>=st&&at<(m.sz()+st))?at-st+out.top(root.node())+'1':-1;
+            return (at>=st&&at<(m.sz()+st))?at-st+out.top(root.node())+'1':noCmd;
           } else {//then its some sort of field
             prompt& a=m;//root.active();
             //Serial<<"utouch "<<(memStrLen(a.shadow->text)*out.resX<startX?"enter":"escape")<<endl;
@@ -86,7 +86,7 @@ UTouch library from:
                 escCmd;
           }
         }
-        return -1;
+        return noCmd;
       }
       void flush() {}
       size_t write(uint8_t v) {return 0;}

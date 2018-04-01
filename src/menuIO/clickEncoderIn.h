@@ -87,7 +87,7 @@ ex: -A0 means: pin A0 normally high, low when button pushed (reverse logic)
               return downCmd;//menu::downCode;
           if (d >= sensivity)
               return upCmd;//menu::upCode;
-          return -1;
+          return noCmd;
         }
 
         navCmd getCmd()

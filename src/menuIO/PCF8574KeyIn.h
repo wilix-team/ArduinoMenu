@@ -51,10 +51,10 @@ PCF8574KeyIn<6> myButton(myBtn_map);
     template <int N, int _dev=0x20, int _sda=SDA, int _scl=SCL>                 //default pcf8574 address=0x20
     class PCF8574KeyIn:public menuIn {
     private:
-      bool modeEdit;  
+      bool modeEdit;
     public:
       keyMap* keys;
-      int lastkey;
+      navCmd lastkey;
       unsigned long pressMills=0;
       PCF8574KeyIn<N, _dev, _sda, _scl>(keyMap k[]):keys(k),lastkey(-1) {}
       void setFieldMode(bool mode) override {
@@ -69,9 +69,9 @@ PCF8574KeyIn<6> myButton(myBtn_map);
           lastkey=ch;
           pressMills=millis();
         }
-        else if (ch == -1 && millis()-pressMills < BOUNCE_TICK)
+        else if (ch == noCmd && millis()-pressMills < BOUNCE_TICK)
         {
-          lastkey = -1;  //released = it's bounce. reset lastkey
+          lastkey = noCmd;  //released = it's bounce. reset lastkey
           return 0;
         }
         else if (ch != -1 && millis()-pressMills > BOUNCE_TICK) return 1;
@@ -81,7 +81,7 @@ PCF8574KeyIn<6> myButton(myBtn_map);
 
         return 1;
       }
-      int peek(void) {
+      navCmd peek(void) {
         //Serial<<"peek"<<endl;
         Wire.requestFrom(_dev, 1);
         uint8_t val = Wire.read();
@@ -101,22 +101,22 @@ PCF8574KeyIn<6> myButton(myBtn_map);
             }
           }
         }
-        return -1;
+        return nocmd;
       }
-      int read() {
+      navCmd getCmd() {
         //Serial<<"read"<<endl;
         int ch=peek();
-        if (ch==lastkey) return -1;
+        if (ch==lastkey) return noCmd;
         int tmp=lastkey;
         bool longPress=ESCAPE_TIME&&millis()-pressMills>ESCAPE_TIME;
         //Serial<<"read lastkey="<<lastkey<<" ch="<<ch<<endl;
         //Serial<<"down time:"<<millis()-pressMills<<endl;
         pressMills=millis();
         lastkey=ch;
-        return longPress?options->getCmdChar(escCmd):tmp;//long press will result in escape
+        return longPress?escCmd:tmp;//long press will result in escape
       }
-      void flush() {}
-      size_t write(uint8_t v) {return 0;}
+      // void flush() {}
+      // size_t write(uint8_t v) {return 0;}
     };
 
   }//namespace Menu

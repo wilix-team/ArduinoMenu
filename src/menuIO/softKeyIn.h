@@ -36,21 +36,21 @@ ex: -A0 means: pin A0 normally high, low when button pushed (reverse logic)
     class softKeyIn:public menuIn {
     public:
       keyMap* keys;
-      int lastkey;
+      navCmd lastkey;
       unsigned long pressMills=0;
       softKeyIn<N>(keyMap k[]):keys(k),lastkey(-1) {}
       int available(void) {
         int ch=peek();
-        if (lastkey==-1) {
+        if (lastkey==noCmd) {
           lastkey=ch;
           pressMills=millis();
         }
-    	else if (ch == -1 && millis()-pressMills < BOUNCE_TICK)
+    	else if (ch == noCmd && millis()-pressMills < BOUNCE_TICK)
     	{
-    		lastkey = -1;  //released = it's bounce. reset lastkey
+    		lastkey = noCmd;  //released = it's bounce. reset lastkey
         return 0;
     	}
-    	else if (ch != -1 && millis()-pressMills > BOUNCE_TICK) return 1;
+    	else if (ch != noCmd && millis()-pressMills > BOUNCE_TICK) return 1;
     	else if (ESCAPE_TIME&&millis()-pressMills>ESCAPE_TIME) return 1;
 
         if (ch==lastkey) return 0;
@@ -63,18 +63,18 @@ ex: -A0 means: pin A0 normally high, low when button pushed (reverse logic)
         }
         return cnt;*/
       }
-      int peek(void) {
+      navCmd peek(void) {
         //Serial<<"peek"<<endl;
         for(int n=0;n<N;n++) {
           int8_t pin=keys[n].pin;
-          if (digitalRead(pin<0?-pin:pin)!=(pin<0) ) return keys[n].code;
+          if (digitalRead(pin<0?-pin:pin)!=(pin<0) ) return keys[n].cmd;
         }
-        return -1;
+        return noCmd;
       }
-      int read() {
+      navCmd getCmd() {
         //Serial<<"read"<<endl;
-        int ch=peek();
-        if (ch==lastkey) return -1;
+        navCmd ch=peek();
+        if (ch==lastkey) return noCmd;
         int tmp=lastkey;
         bool longPress=ESCAPE_TIME&&millis()-pressMills>ESCAPE_TIME;
         //Serial<<"read lastkey="<<lastkey<<" ch="<<ch<<endl;
@@ -83,8 +83,8 @@ ex: -A0 means: pin A0 normally high, low when button pushed (reverse logic)
         lastkey=ch;
         return longPress?options->getCmdChar(escCmd):tmp;//long press will result in escape
       }
-      void flush() {}
-      size_t write(uint8_t v) {return 0;}
+      // void flush() {}
+      // size_t write(uint8_t v) {return 0;}
     };
 
   }//namespace Menu

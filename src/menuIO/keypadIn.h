@@ -22,7 +22,7 @@ using
       Keypad& in;
       keypadIn(Keypad& in):in(in) {}
       int available(void) {return peek()!=0;}
-      int peek(void) {
+      navCmd peek(void) {
         int ret;
 
         if (key) {
@@ -32,20 +32,21 @@ using
           if (key) {
             return key;
           } else {
-            return -1;
+            return noCmd;
           }
         }
       }
-      int read() {
+      navCmd getCmd() {
         if (key) {
+          //TODO: review this!
           char k=key;
           key=0;
           return k;
         }
         return peek();
       }
-      void flush() {}
-      size_t write(uint8_t v) {return 0;}
+      // void flush() {}
+      // size_t write(uint8_t v) {return 0;}
     };
   };
 #endif
