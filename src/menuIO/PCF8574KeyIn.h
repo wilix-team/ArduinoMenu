@@ -17,12 +17,12 @@ example:
 #define K_ENTER  5
 
 keyMap myBtn_map[]={
-                      {K_UP,options->getCmdChar(upCmd)},
-                      {K_RIGHT,options->getCmdChar(rightCmd)},
-                      {K_LEFT,options->getCmdChar(leftCmd)},
-                      {K_DOWN,options->getCmdChar(downCmd)},
-                      {K_ESC,options->getCmdChar(escCmd)},
-                      {K_ENTER,options->getCmdChar(enterCmd)}
+                      {K_UP,upCmd},
+                      {K_RIGHT,rightCmd},
+                      {K_LEFT,leftCmd},
+                      {K_DOWN,downCmd},
+                      {K_ESC,escCmd},
+                      {K_ENTER,enterCmd}
                     };
 PCF8574KeyIn<6> myButton(myBtn_map);
 
