@@ -55,6 +55,7 @@ navCmd navNode::doNavigation(navCmd cmd) {
       rCmd=root->enter();
       break;
     case selCmd:
+    case numValue:
     case idxCmd: {
         idx_t at=(idx_t)cmd.param;//-'1';send us numeric index pls!
         if (at>=0&&at<sz()) {

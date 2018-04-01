@@ -470,6 +470,7 @@
     void menuField<T>::parseInput(navNode& nav,menuIn& in) {
       navCmd cmd=in.peek();
       if (cmd==numValue) {//a numeric value was entered
+        trace(Serial<<"numValue"<<endl);
         // if (in.numValueInput) {
           target()=(T)in.parseFloat();//TODO: use template specialization and proper convertion
           tunning=true;

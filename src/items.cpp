@@ -336,11 +336,12 @@ bool fieldBase::async(const char *uri,navRoot& root,idx_t lvl) {
 #endif
 
 void fieldBase::doNav(navNode& nav,navCmd cmd) {
-  trace(Serial<<"fieldBase::doNav "<<cmd;Serial<<endl);
+  trace(Serial<<"fieldBase::doNav "<<cmd.cmd<<endl);
   switch(cmd.cmd) {
     //by default esc and enter cmds do the same by changing the value
     //it might be set by numeric parsing when allowed
     case idxCmd: //Serial<<"menuField::doNav with idxCmd"<<endl;
+    case numValue:
     case escCmd:
       tunning=true;//prepare for exit
     case enterCmd:

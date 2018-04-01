@@ -100,13 +100,13 @@ MENU(mainMenu,"Main menu",doNothing,noEvent,wrapStyle
 
 
 #define MAX_DEPTH 2
-//Only one build-in font 
+//Only one build-in font
 #define fontW 8
 #define fontH 8
 
 //describing a menu output device without macros
 //define at least one panel for menu output
-const panel panels[] MEMMODE={{0,0,128/fontW,64/fontH}};
+panel panels[] MEMMODE={{0,0,128/fontW,64/fontH}};
 navNode* nodes[sizeof(panels)/sizeof(panel)];//navNodes to store navigation status
 panelsList pList(panels,nodes,1);//a list of panels and nodes
 idx_t tops[MAX_DEPTH]={0,0};//store cursor positions for each level

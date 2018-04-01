@@ -52,7 +52,8 @@
         trace(Serial<<"streamIn::navKeys"<<endl);
         if (strchr(numericChars,ch)) {
           trace(Serial<<"is numeric"<<endl);
-          return navCmd(idxCmd,ch-'1');
+          return navCmd(numValue,ch-'1');
+          // return navCmd(idxCmd,ch-'1');
         }
         for(uint8_t i=0;i<sizeof(navCodes)/sizeof(navCode);i++)
           if (navCodes[i].ch==ch) {
@@ -74,17 +75,17 @@
     };
 
     #ifdef MENU_ASYNC
-      class StringStream:public streamIn {
-        public:
-          const char *src;
-          StringStream(const char*s):src(s) {}
-          int available() override {return 0!=*src;}
-          navCmd getCmd() override {return navKeys(*src++);}
-          navCmd peek() override {return *src?navKeys(*src):noCmd;}
-          // void flush() override {while(*src) src++;}
-          // size_t write(uint8_t) override {return 0;}
-          operator const String() {return String(src);}
-      };
+      // class StringStream:public streamIn {
+      //   public:
+      //     const char *src;
+      //     StringStream(const char*s):src(s) {}
+      //     int available() override {return 0!=*src;}
+      //     navCmd getCmd() override {return navKeys(*src++);}
+      //     navCmd peek() override {return *src?navKeys(*src):noCmd;}
+      //     // void flush() override {while(*src) src++;}
+      //     // size_t write(uint8_t) override {return 0;}
+      //     operator const String() {return String(src);}
+      // };
     #endif
 
     ///////////////////////////////////////////////////////////////////////////
