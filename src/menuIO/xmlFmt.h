@@ -153,6 +153,13 @@
           result fmtStart(prompt& target,menuOut::fmtParts part,navNode &nav,idx_t idx=-1) override {return fmt(true,target,part,nav,idx);}
           result fmtEnd(prompt& target,menuOut::fmtParts part,navNode &nav,idx_t idx=-1) override {return fmt(false,target,part,nav,idx);}
       };
+
+      void outputOptions(menuOut& o,navNode &nav,menuNode& node,idx_t idx) {
+        o<<"<node>";
+        for(idx_t n=0;n<node.sz();n++)
+          o<<"<value"<<(n==node.selected()?" selected=\"selected\"":"")<<">"<<node[n]<<"</value>";
+        o<<"</node>";
+      }
     }//namespace
   #endif
 #endif

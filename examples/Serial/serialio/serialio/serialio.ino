@@ -15,8 +15,6 @@ using namespace Menu;
 
 #define LEDPIN LED_BUILTIN
 
-result zZz() {Serial.println("zZz");return proceed;}
-
 result showEvent(eventMask e,navNode& nav,prompt& item) {
   Serial.print("event: ");
   Serial.println(e);
@@ -108,7 +106,7 @@ constText* constMEM textFilter MEMMODE=" .0123456789abcdefghijklmnopqrstuvwxyzAB
 constText* constMEM textMask[] MEMMODE={textFilter};//this mask will repear till the end of the field
 char name[]="          ";//<-- menu will edit this text
 
-MENU(mainMenu,"Main menu",zZz,noEvent,wrapStyle
+MENU(mainMenu,"Main menu",doNothing,noEvent,wrapStyle
   ,OP("Op1",action1,anyEvent)
   ,OP("Op2",action2,enterEvent)
   ,EDIT("Name",name,textMask,doNothing,noEvent,noStyle)

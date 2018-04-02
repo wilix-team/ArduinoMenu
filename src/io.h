@@ -101,7 +101,6 @@
         idx_t* tops;
         panelsList& panels;
         idx_t lastSel=-1;
-        //TODO: turn this bool's into bitfield flags
         enum styles {none=0<<0,redraw=1<<0,minimalRedraw=1<<1, drawNumIndex=1<<2, usePreview=1<<3, expandEnums=1<<4,rasterDraw=1<<5} style;
         enum fmtParts {
           fmtPanel,fmtTitle,fmtBody,fmtOp,
