@@ -66,12 +66,13 @@ www.r-site.net
     enum result {proceed=0,quit};
     enum systemStyles {
       _noStyle=0,
-      _menuData=1,
-      _canNav=1<<1,
-      _parentDraw=1<<2,
-      _isVariant=1<<3,
-      _asPad=1<<4,
-      _Exit=1<<5
+      _menuData=1,//has a list of options
+      _canNav=1<<1,// can handle navigation input
+      _parentDraw=1<<2,// parent should draw
+      _isVariant=1<<3,// enumerated fields
+      _asPad=1<<4,// inline menu
+      // _altAxis=1<<5,// use alternative navigation axis
+      _Exit=1<<6
     };
     //showTitle and noTitle override the default
     enum styles {
