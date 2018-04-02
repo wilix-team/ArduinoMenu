@@ -287,6 +287,11 @@ meaning that there is not a task of the menu system to decipher and handle comma
 - inputs can be separately configured
 - driver no longer need to use command character indirection
 
+### 4.x
+
+- `timeOut` - menu manages inactivity and can auto-enter sleep mode
+- `idleChanged` documented
+
 ### 4.0
   - More examples
   - Text edit fields with validation *
