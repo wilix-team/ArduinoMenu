@@ -17,6 +17,24 @@ New inputs should provide only cmds and eventually deal with chars internally. T
 
 Doing some experiments to abstract even more from Arduino framework and generalize inputs https://github.com/neu-rah/OneLib (**not yet!**)
 
+**input map**
+```
+navRoot::poll
+navRoot::doInput
+  navTarget NavFocus->parseInput
+  | navTarget::parseInput <-- empty!
+  |   navTarget::doNav
+  |   navTarget::doNavigation
+  | textField::parseInput ... -> navTarget::parseInput
+  | menuField<T>::parseInput
+      fieldBase::doNav ... -> send events
+navRoot::doNav
+| out.doNav
+| navFocus->doNav
+
+[navTarget|textField|menuField]::parseInput
+```
+
 ### Output
 
 ~~Panels logic should be removed from the menu~~ They are on output device but logic is impacting the core to be more precise, by sitting on the only printMenu pipe.
