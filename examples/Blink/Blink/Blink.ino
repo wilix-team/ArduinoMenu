@@ -23,8 +23,8 @@ int timeOn=10;
 int timeOff=90;
 
 MENU(mainMenu, "Blink menu", Menu::doNothing, Menu::noEvent, Menu::wrapStyle
-  ,FIELD(timeOn,"On","ms",0,100,10,1, Menu::doNothing, Menu::noEvent, Menu::noStyle)
-  ,FIELD(timeOff,"Off","ms",0,100,10,1,Menu::doNothing, Menu::noEvent, Menu::noStyle)
+  ,FIELD(timeOn,"On","ms",0,10000,100,10, Menu::doNothing, Menu::noEvent, Menu::noStyle)
+  ,FIELD(timeOff,"Off","ms",0,10000,100,10,Menu::doNothing, Menu::noEvent, Menu::noStyle)
   ,EXIT("<Back")
 );
 
@@ -47,10 +47,9 @@ void setup() {
   Serial.println("to control the menu navigation");
 }
 
+inline bool blinker(int on, int off) {return millis()%(on+off)<on;}
+
 void loop() {
   nav.poll();
-  digitalWrite(LEDPIN, HIGH);
-  delay(timeOn);
-  digitalWrite(LEDPIN, LOW);
-  delay(timeOff);
+  digitalWrite(LEDPIN, blinker(timeOn,timeOff));
 }
